@@ -17,7 +17,7 @@ public class MechanicVO implements Serializable {
 	 */
 	private static final long serialVersionUID = -6559194508815881899L;
 	private String mechanicName;
-	private List<String> repairSkills;
+	private List<SkillVO> skillList;
 	private String mechanicWorksFor;
 	private String estimatedCompletion;
 	private boolean available;
@@ -35,16 +35,16 @@ public class MechanicVO implements Serializable {
 		this.mechanicName = mechanicName;
 	}
 	/**
-	 * @return the repairExpert
+	 * @return the skillList
 	 */
-	public List<String> getRepairSkills() {
-		return repairSkills;
+	public List<SkillVO> getSkillList() {
+		return skillList;
 	}
 	/**
-	 * @param repairExpert the repairExpert to set
+	 * @param skillList the skillList to set
 	 */
-	public void setRepairSkills(List<String> repairSkills) {
-		this.repairSkills = repairSkills;
+	public void setSkillList(List<SkillVO> skillList) {
+		this.skillList = skillList;
 	}
 	/**
 	 * @return the mechanicWorksFor
@@ -70,7 +70,6 @@ public class MechanicVO implements Serializable {
 	public void setEstimatedCompletion(String estimatedCompletion) {
 		this.estimatedCompletion = estimatedCompletion;
 	}
-	
 	/**
 	 * @return the available
 	 */
@@ -100,23 +99,23 @@ public class MechanicVO implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "MechanicVO [mechanicName=" + mechanicName + ", repairSkills=" + repairSkills + ", mechanicWorksFor="
+		return "MechanicVO [mechanicName=" + mechanicName + ", skillList=" + skillList + ", mechanicWorksFor="
 				+ mechanicWorksFor + ", estimatedCompletion=" + estimatedCompletion + ", available=" + available
 				+ ", mechanicId=" + mechanicId + "]";
 	}
 	/**
 	 * @param mechanicName
-	 * @param repairSkills
+	 * @param skillList
 	 * @param mechanicWorksFor
 	 * @param estimatedCompletion
 	 * @param available
 	 * @param mechanicId
 	 */
-	public MechanicVO(String mechanicName, List<String> repairSkills, String mechanicWorksFor,
-			String estimatedCompletion, boolean available, Integer mechanicId) {
+	public MechanicVO(String mechanicName, List<SkillVO> skillList, String mechanicWorksFor, String estimatedCompletion,
+			boolean available, Integer mechanicId) {
 		super();
 		this.mechanicName = mechanicName;
-		this.repairSkills = repairSkills;
+		this.skillList = skillList;
 		this.mechanicWorksFor = mechanicWorksFor;
 		this.estimatedCompletion = estimatedCompletion;
 		this.available = available;
