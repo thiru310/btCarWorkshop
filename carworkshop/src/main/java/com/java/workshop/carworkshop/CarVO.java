@@ -4,6 +4,7 @@
 package com.java.workshop.carworkshop;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author tpurusot
@@ -21,6 +22,7 @@ public class CarVO implements Serializable {
 	private String vehicleType;
 	private String repairComplaints;
 	private String carMakeYear;
+	private List<String> issues;
 	/**
 	 * @return the carNumber
 	 */
@@ -93,16 +95,39 @@ public class CarVO implements Serializable {
 	public void setCarMakeYear(String carMakeYear) {
 		this.carMakeYear = carMakeYear;
 	}
+	
+	/**
+	 * @return the issues
+	 */
+	public List<String> getIssues() {
+		return issues;
+	}
+	/**
+	 * @param issues the issues to set
+	 */
+	public void setIssues(List<String> issues) {
+		this.issues = issues;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		return "CarVO [carNumber=" + carNumber + ", carMake=" + carMake + ", fuelType=" + fuelType + ", vehicleType="
-				+ vehicleType + ", repairComplaints=" + repairComplaints + ", carMakeYear=" + carMakeYear + "]";
+				+ vehicleType + ", repairComplaints=" + repairComplaints + ", carMakeYear=" + carMakeYear + ", issues="
+				+ issues + "]";
 	}
+	/**
+	 * @param carNumber
+	 * @param carMake
+	 * @param fuelType
+	 * @param vehicleType
+	 * @param repairComplaints
+	 * @param carMakeYear
+	 * @param issues
+	 */
 	public CarVO(String carNumber, String carMake, String fuelType, String vehicleType, String repairComplaints,
-			String carMakeYear) {
+			String carMakeYear, List<String> issues) {
 		super();
 		this.carNumber = carNumber;
 		this.carMake = carMake;
@@ -110,6 +135,14 @@ public class CarVO implements Serializable {
 		this.vehicleType = vehicleType;
 		this.repairComplaints = repairComplaints;
 		this.carMakeYear = carMakeYear;
+		this.issues = issues;
+	}
+	/**
+	 * 
+	 */
+	public CarVO() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 	

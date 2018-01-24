@@ -17,9 +17,11 @@ public class MechanicVO implements Serializable {
 	 */
 	private static final long serialVersionUID = -6559194508815881899L;
 	private String mechanicName;
-	private List<String> repairExpert;
+	private List<String> repairSkills;
 	private String mechanicWorksFor;
 	private String estimatedCompletion;
+	private boolean available;
+	private Integer mechanicId;
 	/**
 	 * @return the mechanicName
 	 */
@@ -35,14 +37,14 @@ public class MechanicVO implements Serializable {
 	/**
 	 * @return the repairExpert
 	 */
-	public List<String> getRepairExpert() {
-		return repairExpert;
+	public List<String> getRepairSkills() {
+		return repairSkills;
 	}
 	/**
 	 * @param repairExpert the repairExpert to set
 	 */
-	public void setRepairExpert(List<String> repairExpert) {
-		this.repairExpert = repairExpert;
+	public void setRepairSkills(List<String> repairSkills) {
+		this.repairSkills = repairSkills;
 	}
 	/**
 	 * @return the mechanicWorksFor
@@ -68,25 +70,64 @@ public class MechanicVO implements Serializable {
 	public void setEstimatedCompletion(String estimatedCompletion) {
 		this.estimatedCompletion = estimatedCompletion;
 	}
+	
+	/**
+	 * @return the available
+	 */
+	public boolean isAvailable() {
+		return available;
+	}
+	/**
+	 * @param available the available to set
+	 */
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
+	/**
+	 * @return the mechanicId
+	 */
+	public Integer getMechanicId() {
+		return mechanicId;
+	}
+	/**
+	 * @param mechanicId the mechanicId to set
+	 */
+	public void setMechanicId(Integer mechanicId) {
+		this.mechanicId = mechanicId;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "MechanicVO [mechanicName=" + mechanicName + ", repairExpert=" + repairExpert + ", mechanicWorksFor="
-				+ mechanicWorksFor + ", estimatedCompletion=" + estimatedCompletion + "]";
+		return "MechanicVO [mechanicName=" + mechanicName + ", repairSkills=" + repairSkills + ", mechanicWorksFor="
+				+ mechanicWorksFor + ", estimatedCompletion=" + estimatedCompletion + ", available=" + available
+				+ ", mechanicId=" + mechanicId + "]";
 	}
+	/**
+	 * @param mechanicName
+	 * @param repairSkills
+	 * @param mechanicWorksFor
+	 * @param estimatedCompletion
+	 * @param available
+	 * @param mechanicId
+	 */
+	public MechanicVO(String mechanicName, List<String> repairSkills, String mechanicWorksFor,
+			String estimatedCompletion, boolean available, Integer mechanicId) {
+		super();
+		this.mechanicName = mechanicName;
+		this.repairSkills = repairSkills;
+		this.mechanicWorksFor = mechanicWorksFor;
+		this.estimatedCompletion = estimatedCompletion;
+		this.available = available;
+		this.mechanicId = mechanicId;
+	}
+	/**
+	 * 
+	 */
 	public MechanicVO() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-	public MechanicVO(String mechanicName, List<String> repairExpert, String mechanicWorksFor,
-			String estimatedCompletion) {
-		super();
-		this.mechanicName = mechanicName;
-		this.repairExpert = repairExpert;
-		this.mechanicWorksFor = mechanicWorksFor;
-		this.estimatedCompletion = estimatedCompletion;
 	}
 	
 	
