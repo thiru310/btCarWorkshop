@@ -1,6 +1,7 @@
 package com.java.workshop.carworkshop;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -15,15 +16,45 @@ public class App
 {
 	public static List<MechanicVO> mechanicList = new ArrayList<MechanicVO>();
 	public static List<SkillVO> skillVoList = new ArrayList<SkillVO>();
+	public static final List<String> issueList = new ArrayList<String>();
 	public static Map<String,SkillVO> issueSkillMap = new HashMap<String, SkillVO>();
-	public static Map<SkillVO,List<MechanicVO>> skillMechanicMap = new HashMap<SkillVO,List<MechanicVO>>();
+	public static Map<String,List<MechanicVO>> skillMechanicMap = new HashMap<String,List<MechanicVO>>();
 	Set<MechanicVO> avialablemechanicSet = new HashSet<MechanicVO>();
 	
 	public App() {
 		createMechanicList();
+		createIssueList();
+		issueSkillMap();
+		
 	}
 	
-	public void createMechanicList() {
+	
+	
+    public static void main( String[] args )
+    {
+    	App app = new App();
+    	
+        CarVO car = new CarVO();
+        car.setCarMake("Maruti Suzuki");
+        car.setCarMakeYear("2015");
+        car.setCarNumber("PY 01 BF 7450");
+        car.setFuelType("Diesel");
+        List<String> carissues =  new ArrayList<String>();
+        carissues.add("OilChanging");
+        carissues.add("TimingBelt");
+        carissues.add("CarburetorCleaning");
+        car.setIssues(carissues);
+        car.setVehicleType("Hatchback Swift");
+        
+        Set<MechanicVO> mechOptfortheCar = app.getSkillAvailableMechanicMap(car);
+        System.out.println("Available Mechanics after assigning to car service");
+        System.out.println(Arrays.toString(mechanicList.toArray()));
+    	
+    	System.out.println( "Hello World!" );
+    }
+    
+    
+    public void createMechanicList() {
 		SkillVO engineCleaningSkill = new SkillVO();
 		engineCleaningSkill.setSkillId(1);
 		engineCleaningSkill.setSkillName("EngineCleaning");
@@ -176,12 +207,98 @@ public class App
 		mechanicList.add(mechanic10);
 	}
 	
-	public void issueSkillMap() {
+	public void createIssueList() {
+		issueList.add("EngineCleaning");
+		issueList.add("JumpStarting");
+		issueList.add("RearDeFroster");
+		issueList.add("SerpentineBelt");
+		issueList.add("CarburetorCleaning");
+		issueList.add("OilChanging");
+		issueList.add("SparkPlug");
+		issueList.add("TimingBelt");
 		
 	}
 	
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-    }
+	public void issueSkillMap() {
+		for(String issueStr : issueList) {
+			for(SkillVO skillvo : skillVoList) {
+				if(null !=  issueStr && !issueStr.isEmpty() && null != skillvo &&  null != skillvo.getSkillName() && !skillvo.getSkillName().isEmpty()) {
+					if(issueStr.equalsIgnoreCase(skillvo.getSkillName())) {
+						issueSkillMap.put(issueStr, skillvo);
+					}
+				}
+			}
+		}
+		System.out.println("issueSkillMap >>"+issueSkillMap.toString());
+	}
+	
+	public Set<MechanicVO> getSkillAvailableMechanicMap(CarVO car) {
+		String carBrandname = car.getCarMake();
+		List<String> issuelist = car.getIssues();
+		System.out.println("issues list in getAvailableMechanic Map >>"+Arrays.toString(issuelist.toArray()));
+		if(null != issuelist && issuelist.size() > 0) {
+			System.out.println("Issue List is not empty");
+			Set<MechanicVO> availableMechanicList = new HashSet<MechanicVO>();
+			for(String issues : issuelist) {
+				System.out.println("Iterateing issue list");
+				for(MechanicVO mechanicVO : mechanicList) {
+					if(null != carBrandname && !carBrandname.isEmpty() && carBrandname.equals(mechanicVO.getMechanicWorksFor())){
+						if(null != mechanicVO && mechanicVO.isAvailable() && null != mechanicVO.getSkillList() && mechanicVO.getSkillList().size() > 1) {
+							for(SkillVO mechanicSkill: mechanicVO.getSkillList()) {
+								if(null != issues && !issues.isEmpty()) {
+									if(null != mechanicSkill &&  null != mechanicSkill.getSkillName() && !mechanicSkill.getSkillName().isEmpty()) {
+										if(mechanicSkill.getSkillName().equals(issues)) {
+											System.out.println("Mechaninc name >>"+mechanicVO.getMechanicName());
+											System.out.println("Mechaninc skill >>"+mechanicSkill.getSkillName());
+											if(mechanicList.contains(mechanicVO)) {
+												int mechanicVOIndex = mechanicList.indexOf(mechanicVO);
+												mechanicList.get(mechanicVOIndex).setAvailable(Boolean.FALSE);
+											}
+											mechanicVO.setAvailable(Boolean.FALSE);
+											avialablemechanicSet.add(mechanicVO);
+										}
+									}
+								}
+							}
+						}
+					}
+					
+					//skillMechanicMap.put(skillvo.getSkillName(), availableMechanicList);
+				}
+			}
+			System.out.println("Mechanic Skill list >>"+Arrays.toString(availableMechanicList.toArray()));
+
+		}
+		return avialablemechanicSet;
+			
+			
+		
+	}
+	
+	
+	public void skillMechanicMap() {
+		for(SkillVO skillvo : skillVoList) {
+			List<MechanicVO> availableMechanicList = new ArrayList<MechanicVO>();
+			for(MechanicVO mechanicVO : mechanicList) {
+				if(null != mechanicVO && mechanicVO.isAvailable() && null != mechanicVO.getSkillList() && mechanicVO.getSkillList().size() > 1) {
+					for(SkillVO mechanicSkill: mechanicVO.getSkillList()) {
+						if(null != skillvo && null != skillvo.getSkillName() && !skillvo.getSkillName().isEmpty()) {
+							if(null != mechanicSkill &&  null != mechanicSkill.getSkillName() && !mechanicSkill.getSkillName().isEmpty()) {
+								if(mechanicSkill.getSkillName().equals(skillvo.getSkillName())) {
+									System.out.println("Mechaninc name >>"+mechanicVO.getMechanicName());
+									System.out.println("Mechaninc skill >>"+mechanicSkill.getSkillName());
+									availableMechanicList.add(mechanicVO);
+								}
+							}
+						}
+					}
+				}
+				System.out.println("Mechanic Skill list >>"+Arrays.toString(availableMechanicList.toArray()));
+				skillMechanicMap.put(skillvo.getSkillName(), availableMechanicList);
+			}
+			
+		}
+		System.out.println("skillMechanicMap >>>"+skillMechanicMap.toString());
+	}
+	
 }
